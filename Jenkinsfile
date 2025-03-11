@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_HUB_REPO = 'genih/php-todo-app'
-        IMAGE_TAG = "php-todo:${env.BUILD_NUMBER}"
+    
     }
 
      stages {
@@ -24,7 +24,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t ${DOCKER_HUB_REPO}:${env.BUILD_NUMBER} ."
+                    sh "docker build -t ${DOCKER_HUB_REPO}:${env.BRANCH_NAME}${env.BUILD_NUMBER} ."
                 }
             }
         }
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     sh "docker login -u ${USERNAME} -p ${PASSWORD}"
-                    sh "docker push ${DOCKER_HUB_REPO}:${env.BUILD_NUMBER}"
+                    sh "docker push ${DOCKER_HUB_REPO}:${env.BRANCH_NAME}${env.BUILD_NUMBER}"
                 }
             }
         }
