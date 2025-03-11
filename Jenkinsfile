@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     sh "docker login -u ${USERNAME} -p ${PASSWORD}"
-                    sh "docker push ${DOCKER_HUB_REPO}:${IMAGE_TAG}"
+                    sh "docker push ${DOCKER_HUB_REPO}:${env.BUILD_NUMBER}"
                 }
             }
         }
