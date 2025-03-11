@@ -16,7 +16,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t ${DOCKER_HUB_REPO}:${IMAGE_TAG} ."
+                    sh "docker build -t ${DOCKER_HUB_REPO}:${env.BUILD_NUMBER} ."
                 }
             }
         }
@@ -24,7 +24,7 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    sh "docker login -u your-dockerhub-username -p your-dockerhub-password"
+                    sh "docker login -u ${USERNAME} -p ${PASSWORD}"
                     sh "docker push ${DOCKER_HUB_REPO}:${IMAGE_TAG}"
                 }
             }
