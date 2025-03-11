@@ -6,10 +6,18 @@ pipeline {
         IMAGE_TAG = "php-todo:${env.BUILD_NUMBER}"
     }
 
-    stages {
-        stage('Checkout Code') {
+     stages {
+        stage("Initial cleanup") {
             steps {
-                git 'https://github.com/GenetH/docker-php-todo'
+                dir("${WORKSPACE}") {
+                    deleteDir()
+                }
+            }
+        }
+
+        stage('Checkout') {
+            steps {
+                checkout scm
             }
         }
 
